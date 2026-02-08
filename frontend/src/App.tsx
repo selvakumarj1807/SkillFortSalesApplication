@@ -23,6 +23,9 @@ import AdminBlank from "./pages/AdminBlank";
 import AdminHome from "./pages/Dashboard/AdminHome";
 import AddSalesPersonForm from "./pages/Forms/AddSalesPersonForm";
 import AddStudentReferal from "./pages/Forms/AddStudentReferal";
+import UserAppLayout from "./layout/UserAppLayout";
+import SalesUserHome from "./pages/Dashboard/SalesUserHome";
+import SalesUserAddStudentReferal from "./pages/Forms/SalesUserAddStudentReferal";
 
 export default function App() {
   return (
@@ -32,7 +35,7 @@ export default function App() {
         <Routes>
           {/* Dashboard Layout */}
           <Route element={<AppLayout />}>
-           <Route index path="/AppLayout" element={<Home />} /> 
+            <Route index path="/AppLayout" element={<Home />} />
 
             {/* Others Page */}
             <Route path="/profile" element={<UserProfiles />} />
@@ -60,10 +63,16 @@ export default function App() {
 
           {/* Admin Layout */}
           <Route element={<AdminAppLayout />}>
-            <Route index path="/" element={<AdminHome />} />
+            <Route index path="/admin" element={<AdminHome />} />
             <Route path="/addSalesPerson" element={<AddSalesPersonForm />} />
             <Route path="/salesProducts" element={<AdminBlank />} />
             <Route path="/addStudentReferral" element={<AddStudentReferal />} />
+          </Route>
+
+          {/* Admin Layout */}
+          <Route element={<UserAppLayout />}>
+            <Route index path="/" element={<SalesUserHome />} />
+            <Route path="/userAddStudentReferral" element={<SalesUserAddStudentReferal />} />
           </Route>
 
           {/* Auth Layout */}
