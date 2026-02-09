@@ -10,6 +10,7 @@ export default function SignUpForm() {
 
     const [showPassword, setShowPassword] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -31,9 +32,13 @@ export default function SignUpForm() {
             return;
         }
 
+        if (loading) return;
+
+        setLoading(true);
+
         try {
             const response = await fetch(
-                "http://localhost:8000/api/auth/signup",
+                "https://skillfortsalesapp.onrender.com/api/auth/signup",
                 {
                     method: "POST",
                     headers: {
@@ -58,6 +63,8 @@ export default function SignUpForm() {
             navigate("/userSignin");
         } catch (error: any) {
             alert(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -205,9 +212,14 @@ export default function SignUpForm() {
 
                             <button
                                 type="submit"
-                                className="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600"
+                                disabled={loading}
+                                className={`flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600
+                                ${!loading
+                                        ? "bg-brand-500 hover:bg-brand-600"
+                                        : "bg-gray-400 cursor-not-allowed opacity-60"
+                                    }`}
                             >
-                                Sign Up
+                                {loading ? "Signing Up..." : "Sign Up"}
                             </button>
                         </div>
                     </form>

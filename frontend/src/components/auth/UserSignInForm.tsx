@@ -10,6 +10,7 @@ export default function SignInForm() {
 
     const [showPassword, setShowPassword] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         email: "",
@@ -24,9 +25,13 @@ export default function SignInForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        if (loading) return;
+
+        setLoading(true);
+
         try {
             const response = await fetch(
-                "http://localhost:8000/api/auth/login",
+                "https://skillfortsalesapp.onrender.com/api/auth/login",
                 {
                     method: "POST",
                     headers: {
@@ -55,12 +60,14 @@ export default function SignInForm() {
 
         } catch (error: any) {
             alert(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <div className="flex flex-col flex-1">
-        
+
             <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
                 <div>
                     <div className="mb-5 sm:mb-8">
@@ -175,10 +182,14 @@ export default function SignInForm() {
                             <div>
                                 <button
                                     type="submit"
-                                    className="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600"
-
+                                    disabled={loading}
+                                    className={`flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600
+                                ${!loading
+                                            ? "bg-brand-500 hover:bg-brand-600"
+                                            : "bg-gray-400 cursor-not-allowed opacity-60"
+                                        }`}
                                 >
-                                    Sign in
+                                    {loading ? "Signing In..." : "Sign In"}
                                 </button>
                             </div>
                         </div>

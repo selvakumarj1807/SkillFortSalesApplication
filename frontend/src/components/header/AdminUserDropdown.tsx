@@ -26,7 +26,7 @@ export default function UserDropdown() {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:8000/api/auth/logout", {
+      await fetch("https://skillfortsalesapp.onrender.com/api/auth/logout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
@@ -51,7 +51,7 @@ export default function UserDropdown() {
         </span>
 
         <span className="block mr-1 font-medium text-theme-sm">
-          {user?.firstName || "Admin"}
+          {user?.firstName} {user?.lastName}
         </span>
         <svg
           className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
