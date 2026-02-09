@@ -21,7 +21,7 @@ const navItems: NavItem[] = [
     {
         icon: <GridIcon />,
         name: "Dashboard",
-        path: "/",
+        path: "/user",
     },   
     {
         icon: <UserCircleIcon />,
@@ -233,7 +233,7 @@ const AppSidebar: React.FC = () => {
                 className={`py-8 flex ${!isExpanded && !isHovered ? "lg:justify-center" : "justify-center"
                     }`}
             >
-                <Link to="/">
+                <Link to="/user">
                     {isExpanded || isHovered || isMobileOpen ? (
                         <>
                             <img

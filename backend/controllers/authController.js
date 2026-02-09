@@ -48,25 +48,48 @@ exports.signup = async (req, res) => {
 };
 
 // Login
+// Login
 exports.login = async (req, res) => {
   try {
     const { role, email, password } = req.body;
+
     const roleData = await Role.findOne({ name: role });
-    if (!roleData) return res.status(400).json({ error: "Role not found" });
+    if (!roleData)
+      return res.status(400).json({ error: "Role not found" });
 
     const user = await User.findOne({ email, role: roleData._id });
-    if (!user) return res.status(400).json({ error: "Invalid credentials" });
+    if (!user)
+      return res.status(400).json({ error: "Invalid credentials" });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
+    if (!isMatch)
+      return res.status(400).json({ error: "Invalid credentials" });
 
+    // ✅ UPDATED TOKEN PAYLOAD
     const token = jwt.sign(
-      { id: user._id, role: roleData.name },
+      {
+        id: user._id,
+        role: roleData.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
 
-    res.json({ message: "Login successful", token });
+    res.json({
+      message: "Login successful",
+      token,
+      user: {
+        id: user._id,
+        role: roleData.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      },
+    });
+
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

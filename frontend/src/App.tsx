@@ -27,6 +27,12 @@ import UserAppLayout from "./layout/UserAppLayout";
 import SalesUserHome from "./pages/Dashboard/SalesUserHome";
 import SalesUserAddStudentReferal from "./pages/Forms/SalesUserAddStudentReferal";
 
+import UserSignUp from "./pages/AuthPages/UserSignUp";
+import UserSignIn from "./pages/AuthPages/UserSignIn";
+import UserProtectedRoute from "./layout/UserProtectedRoute";
+import AdminSignIn from "./pages/AuthPages/AdminSignIn";
+import AdminProtectedRoute from "./layout/AdminProtectedRoute";
+
 export default function App() {
   return (
     <>
@@ -62,22 +68,37 @@ export default function App() {
           </Route>
 
           {/* Admin Layout */}
-          <Route element={<AdminAppLayout />}>
+          <Route element={
+            <AdminProtectedRoute>
+            <AdminAppLayout />
+            </AdminProtectedRoute>
+            }>
             <Route index path="/admin" element={<AdminHome />} />
             <Route path="/addSalesPerson" element={<AddSalesPersonForm />} />
-            <Route path="/salesProducts" element={<AdminBlank />} />
+            <Route path="/addSaleProducts" element={<AdminBlank />} />
             <Route path="/addStudentReferral" element={<AddStudentReferal />} />
           </Route>
 
-          {/* Admin Layout */}
-          <Route element={<UserAppLayout />}>
-            <Route index path="/" element={<SalesUserHome />} />
+          {/* User Layout */}
+          <Route element={
+            <UserProtectedRoute>
+            <UserAppLayout />
+            </UserProtectedRoute>
+            }>
+            <Route index path="/user" element={<SalesUserHome />} />
             <Route path="/userAddStudentReferral" element={<SalesUserAddStudentReferal />} />
           </Route>
+
+          <Route path="/" element={<UserSignIn />} />
 
           {/* Auth Layout */}
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+
+          <Route path="/userSignup" element={<UserSignUp />} />
+          <Route path="/userSignin" element={<UserSignIn />} />
+
+          <Route path="/adminSignin" element={<AdminSignIn />} />
 
           {/* Fallback Route */}
           <Route path="*" element={<NotFound />} />
