@@ -32,6 +32,8 @@ import UserSignIn from "./pages/AuthPages/UserSignIn";
 import UserProtectedRoute from "./layout/UserProtectedRoute";
 import AdminSignIn from "./pages/AuthPages/AdminSignIn";
 import AdminProtectedRoute from "./layout/AdminProtectedRoute";
+import Refer_Earn from "./pages/Refer_Earn";
+import UserBlank from "./pages/UserBlank";
 
 export default function App() {
   return (
@@ -86,6 +88,8 @@ export default function App() {
             }>
             <Route index path="/user" element={<SalesUserHome />} />
             <Route path="/userAddStudentReferral" element={<SalesUserAddStudentReferal />} />
+            <Route path="/usermanageStudentReferral" element={<UserBlank />} />
+            <Route path="/refer" element={<Refer_Earn />} />
           </Route>
 
           <Route path="/" element={<UserSignIn />} />

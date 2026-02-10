@@ -22,7 +22,7 @@ const navItems: NavItem[] = [
         icon: <GridIcon />,
         name: "Dashboard",
         path: "/user",
-    },   
+    },
     {
         icon: <UserCircleIcon />,
         name: "Student Referrals",
@@ -30,6 +30,11 @@ const navItems: NavItem[] = [
             { name: "Add Student Referral", path: "/userAddStudentReferral", pro: false },
             { name: "View Student Referral", path: "/usermanageStudentReferral", pro: false },
         ],
+    },
+    {
+        icon: <UserCircleIcon />,
+        name: "Refer & Earn",
+        path: "/refer",
     },
 ];
 
