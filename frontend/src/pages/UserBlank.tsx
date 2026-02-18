@@ -1,14 +1,24 @@
+import { useEffect } from "react";
+import Footer from "../components/common/Footer";
 import PageBreadCrumb from "../components/common/PageBreadCrumb";
-import PageMeta from "../components/common/PageMeta";
+import WhatsAppFloat from "../components/common/WhatsAppFloat";
 
 export default function Blank() {
+    useEffect(() => {
+    document.title = "SkillFort | User Blank Page";
+
+    const meta = document.querySelector(
+      "meta[name='description']"
+    ) as HTMLMetaElement;
+
+    if (meta) {
+      meta.content = "SkillFort Sales User Blank Page Overview";
+    }
+  }, []);
     return (
         <>
             <div>
-                <PageMeta
-                    title="SkillFort | Blank Page"
-                    description="This is a blank page"
-                />
+                
                 <PageBreadCrumb pageTitle="Blank Page" />
                 <div className="min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
                     <div className="mx-auto w-full max-w-[630px] text-center">
@@ -22,6 +32,10 @@ export default function Blank() {
                         </p>
                     </div>
                 </div>
+
+                <WhatsAppFloat />
+
+                <Footer />
             </div>
         </>
     );

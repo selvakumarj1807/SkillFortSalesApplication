@@ -38,74 +38,75 @@ import UserBlank from "./pages/UserBlank";
 export default function App() {
   return (
     <>
-        <ScrollToTop />
-        <Routes>
-          {/* Dashboard Layout */}
-          <Route element={<AppLayout />}>
-            <Route index path="/AppLayout" element={<Home />} />
+      <ScrollToTop />
+      <Routes>
+        {/* Dashboard Layout */}
+        <Route element={<AppLayout />}>
+          <Route path="/AppLayout" element={<Home />} />
 
-            {/* Others Page */}
-            <Route path="/profile" element={<UserProfiles />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/blank" element={<Blank />} />
+          {/* Others Page */}
+          <Route path="/profile" element={<UserProfiles />} />
+          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/blank" element={<Blank />} />
 
-            {/* Forms */}
-            <Route path="/form-elements" element={<FormElements />} />
+          {/* Forms */}
+          <Route path="/form-elements" element={<FormElements />} />
 
-            {/* Tables */}
-            <Route path="/basic-tables" element={<BasicTables />} />
+          {/* Tables */}
+          <Route path="/basic-tables" element={<BasicTables />} />
 
-            {/* Ui Elements */}
-            <Route path="/alerts" element={<Alerts />} />
-            <Route path="/avatars" element={<Avatars />} />
-            <Route path="/badge" element={<Badges />} />
-            <Route path="/buttons" element={<Buttons />} />
-            <Route path="/images" element={<Images />} />
-            <Route path="/videos" element={<Videos />} />
+          {/* Ui Elements */}
+          <Route path="/alerts" element={<Alerts />} />
+          <Route path="/avatars" element={<Avatars />} />
+          <Route path="/badge" element={<Badges />} />
+          <Route path="/buttons" element={<Buttons />} />
+          <Route path="/images" element={<Images />} />
+          <Route path="/videos" element={<Videos />} />
 
-            {/* Charts */}
-            <Route path="/line-chart" element={<LineChart />} />
-            <Route path="/bar-chart" element={<BarChart />} />
-          </Route>
+          {/* Charts */}
+          <Route path="/line-chart" element={<LineChart />} />
+          <Route path="/bar-chart" element={<BarChart />} />
+        </Route>
 
-          {/* Admin Layout */}
-          <Route element={
-            <AdminProtectedRoute>
+        {/* Admin Layout */}
+        <Route element={
+          <AdminProtectedRoute>
             <AdminAppLayout />
-            </AdminProtectedRoute>
-            }>
-            <Route index path="/admin" element={<AdminHome />} />
-            <Route path="/addSalesPerson" element={<AddSalesPersonForm />} />
-            <Route path="/addSaleProducts" element={<AdminBlank />} />
-            <Route path="/addStudentReferral" element={<AddStudentReferal />} />
-          </Route>
+          </AdminProtectedRoute>
+        }>
+          <Route path="/admin" element={<AdminHome />} />
+          <Route path="/addSalesPerson" element={<AddSalesPersonForm />} />
+          <Route path="/addSaleProducts" element={<AdminBlank />} />
+          <Route path="/addStudentReferral" element={<AddStudentReferal />} />
+        </Route>
 
-          {/* User Layout */}
-          <Route element={
-            <UserProtectedRoute>
+        {/* User Layout */}
+        <Route element={
+          <UserProtectedRoute>
             <UserAppLayout />
-            </UserProtectedRoute>
-            }>
-            <Route index path="/user" element={<SalesUserHome />} />
-            <Route path="/userAddStudentReferral" element={<SalesUserAddStudentReferal />} />
-            <Route path="/usermanageStudentReferral" element={<UserBlank />} />
-            <Route path="/refer" element={<Refer_Earn />} />
-          </Route>
+          </UserProtectedRoute>
+        }>
+          <Route path="/user" element={<SalesUserHome />} />
+          <Route path="/userAddStudentReferral" element={<SalesUserAddStudentReferal />} />
+          <Route path="/usermanageStudentReferral" element={<UserBlank />} />
+          <Route path="/refer" element={<Refer_Earn />} />
+        </Route>
 
-          <Route path="/" element={<UserSignIn />} />
+        <Route path="/" element={<UserSignIn />} />
 
-          {/* Auth Layout */}
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
+        {/* Auth Layout */}
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
 
-          <Route path="/userSignup" element={<UserSignUp />} />
-          <Route path="/userSignin" element={<UserSignIn />} />
+        <Route path="/userSignup" element={<UserSignUp />} />
+        <Route path="/userSignin" element={<UserSignIn />} />
 
-          <Route path="/adminSignin" element={<AdminSignIn />} />
+        <Route path="/adminSignin" element={<AdminSignIn />} />
 
-          {/* Fallback Route */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        {/* Fallback Route */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+
     </>
   );
 }

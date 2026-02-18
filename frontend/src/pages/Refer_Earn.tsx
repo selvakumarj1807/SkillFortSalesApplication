@@ -1,11 +1,24 @@
+import { useEffect } from "react";
+import Footer from "../components/common/Footer";
 import PageBreadCrumb from "../components/common/PageBreadCrumb";
-import PageMeta from "../components/common/PageMeta";
+import WhatsAppFloat from "../components/common/WhatsAppFloat";
 
 // const REFER_LINK = "https://skill-fort-sales-application.vercel.app/refer?code=SKILL123";
 
 const REFER_LINK = "https://skill-fort-sales-application.vercel.app/";
 
 export default function Refer_Earn() {
+    useEffect(() => {
+    document.title = "SkillFort | Refer & Earn";
+
+    const meta = document.querySelector(
+      "meta[name='description']"
+    ) as HTMLMetaElement;
+
+    if (meta) {
+      meta.content = "SkillFort Sales User Refer & Earn Overview";
+    }
+  }, []);
     const handleWhatsAppShare = () => {
         const text = `Join Skill Fort using my referral link and earn rewards! \n${REFER_LINK}`;
         const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
@@ -31,10 +44,6 @@ export default function Refer_Earn() {
 
     return (
         <>
-            <PageMeta
-                title="SkillFort | Refer & Earn"
-                description="Refer Skill Fort to your friends and earn rewards"
-            />
 
             <PageBreadCrumb pageTitle="Refer & Earn" />
 
@@ -131,6 +140,10 @@ export default function Refer_Earn() {
 
                 </div>
             </div>
+
+            <WhatsAppFloat />
+
+            <Footer />
         </>
     );
 }

@@ -1,20 +1,33 @@
+import { useEffect } from "react";
+import Footer from "../../components/common/Footer";
 import PageBreadCrumb from "../../components/common/PageBreadCrumb";
-import PageMeta from "../../components/common/PageMeta";
+import WhatsAppFloat from "../../components/common/WhatsAppFloat";
 import StudentReferalInputs from "../../components/form/form-elements/StudentReferalInputs";
 
 export default function FormElements() {
+    useEffect(() => {
+    document.title = "SkillFort | Add Student Referal";
+
+    const meta = document.querySelector(
+      "meta[name='description']"
+    ) as HTMLMetaElement;
+
+    if (meta) {
+      meta.content = "SkillFort Sales User Add Student Referal Overview";
+    }
+  }, []);
     return (
         <div>
-            <PageMeta
-                title="Skill Fort | Add Student Referal"
-                description="Add a new student referal to the system"
-            />
             <PageBreadCrumb pageTitle="Add Student Referal" />
             <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
                 <div className="col-span-12">
                     <StudentReferalInputs />
                 </div>
             </div>
+
+            <WhatsAppFloat />
+            
+            <Footer />
         </div>
     );
 }
