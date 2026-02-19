@@ -22,6 +22,18 @@ export default function Footer() {
         }
     };
 
+    const getInstagramLink = () => {
+        const username = "skillfort_institute";
+
+        const isAndroid = /Android/i.test(navigator.userAgent);
+
+        if (isAndroid) {
+            return `https://ig.me/m/${username}`;   // Android
+        }
+
+        return `https://instagram.com/${username}/`; // Desktop + iPhone
+    };
+
     return (
         <div className="flex justify-center" style={{ marginBottom: '-15px' }}>
             <footer className="bottom-0 z-50 py-4
@@ -34,8 +46,9 @@ export default function Footer() {
                     {/* ICONS */}
                     <div className="flex items-center justify-center gap-6 text-xl">
 
+                        {/* Instagram */}
                         <a
-                            href="https://instagram.com/skillfort_institute/"
+                            href={getInstagramLink()}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="transition hover:text-pink-400"
