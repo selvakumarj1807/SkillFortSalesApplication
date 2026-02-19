@@ -142,20 +142,40 @@ exports.deleteRole = async (req, res) => {
 };
 
 // Get all users with count
+// Get users (optional role filter)
 exports.getUsers = async (req, res) => {
   try {
-    const users = await User.find().populate("role", "name");
-    const totalUsers = await User.countDocuments();
+
+    // 👉 Read query param
+    const { role } = req.query;
+
+    let filter = {};
+
+    // If role provided -> find role ID first
+    if (role) {
+      const roleData = await Role.findOne({ name: role });
+
+      if (!roleData) {
+        return res.status(404).json({ error: "Role not found" });
+      }
+
+      filter.role = roleData._id;
+    }
+
+    const users = await User.find(filter).populate("role", "name");
+    const totalUsers = users.length;
 
     res.json({
       success: true,
       totalUsers,
       users
     });
+
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
+
 
 
 // Get single user by ID

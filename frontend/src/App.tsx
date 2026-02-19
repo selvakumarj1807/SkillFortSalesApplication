@@ -34,6 +34,7 @@ import AdminSignIn from "./pages/AuthPages/AdminSignIn";
 import AdminProtectedRoute from "./layout/AdminProtectedRoute";
 import Refer_Earn from "./pages/Refer_Earn";
 import UserBlank from "./pages/UserBlank";
+import ManageSalesPerson from "./pages/Tables/ManageSalesPerson";
 
 export default function App() {
   return (
@@ -76,6 +77,7 @@ export default function App() {
         }>
           <Route path="/admin" element={<AdminHome />} />
           <Route path="/addSalesPerson" element={<AddSalesPersonForm />} />
+          <Route path="/manageSalesPerson" element={<ManageSalesPerson />} />
           <Route path="/addSaleProducts" element={<AdminBlank />} />
           <Route path="/addStudentReferral" element={<AddStudentReferal />} />
         </Route>

@@ -2,37 +2,20 @@ import { useState } from "react";
 import ComponentCard from "../../common/ComponentCard";
 import Label from "../Label";
 import Input from "../input/InputField";
-import Select from "../Select";
-import DatePicker from "../date-picker";
+import { useNavigate } from "react-router-dom";
 
 export default function SalesPersonInputs() {
-    const [formData, setFormData] = useState({
-        name: "",
-        mobile: "",
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+
+    const initialState = {
+        firstName: "",
+        lastName: "",
         email: "",
-        aadhaar: "",
-        dob: "",
-        education: "",
-        address: "",
-        zone: "",
-        password: "",
-    });
+        password: "User@123", // default password
+    };
 
-    // Select Options
-    const educationOptions = [
-        { value: "10th", label: "10th" },
-        { value: "12th", label: "12th" },
-        { value: "diploma", label: "Diploma" },
-        { value: "ug", label: "UG" },
-        { value: "pg", label: "PG" },
-    ];
-
-    const zoneOptions = [
-        { value: "Madhurai", label: "Madhurai" },
-        { value: "Dindigul", label: "Dindigul" },
-        { value: "Chennai", label: "Chennai" },
-        { value: "Trichy", label: "Trichy" },
-    ];
+    const [formData, setFormData] = useState(initialState);
 
     // Handle Input Change
     const handleChange = (field: string, value: string) => {
@@ -43,11 +26,45 @@ export default function SalesPersonInputs() {
     };
 
     // Submit Handler
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Submitted Data:", formData);
+        if (loading) return;
 
-        // 👉 API call here
+        setLoading(true);
+
+        try {
+            const response = await fetch(
+                "https://skillfortsalesapp.onrender.com/api/auth/signup",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        role: "User",
+                        ...formData,
+                    }),
+                }
+            );
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || "Sales Person Create failed");
+            }
+
+            alert("Sales Person Created Successfully ✅");
+
+            // ✅ Clear Form
+            setFormData(initialState);
+
+            // optional redirect
+            navigate("/addSalesPerson");
+
+        } catch (error: any) {
+            alert(error.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -55,29 +72,26 @@ export default function SalesPersonInputs() {
             <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
 
-                    {/* Name */}
                     <div>
-                        <Label>Name</Label>
+                        <Label>First Name</Label>
                         <Input
                             type="text"
-                            placeholder="Enter full name"
-                            value={formData.name}
-                            onChange={(e) => handleChange("name", e.target.value)}
+                            placeholder="Enter first name"
+                            value={formData.firstName}
+                            onChange={(e) => handleChange("firstName", e.target.value)}
                         />
                     </div>
 
-                    {/* Mobile */}
                     <div>
-                        <Label>Mobile</Label>
+                        <Label>Last Name</Label>
                         <Input
-                            type="tel"
-                            placeholder="Enter mobile number"
-                            value={formData.mobile}
-                            onChange={(e) => handleChange("mobile", e.target.value)}
+                            type="text"
+                            placeholder="Enter last name"
+                            value={formData.lastName}
+                            onChange={(e) => handleChange("lastName", e.target.value)}
                         />
                     </div>
 
-                    {/* Email */}
                     <div>
                         <Label>Email</Label>
                         <Input
@@ -88,81 +102,29 @@ export default function SalesPersonInputs() {
                         />
                     </div>
 
-                    {/* Aadhaar */}
-                    <div>
-                        <Label>Aadhaar</Label>
-                        <Input
-                            type="text"
-                            placeholder="Enter Aadhaar number"
-                            value={formData.aadhaar}
-                            onChange={(e) => handleChange("aadhaar", e.target.value)}
-                        />
-                    </div>
-
-                    {/* DOB */}
-                    <div>
-                        <DatePicker
-                            id="dob"
-                            label="Date of Birth"
-                            placeholder="Select DOB"
-                            onChange={(_, dateString) =>
-                                handleChange("dob", dateString)
-                            }
-                        />
-                    </div>
-
-                    {/* Education */}
-                    <div>
-                        <Label>Education</Label>
-                        <Select
-                            options={educationOptions}
-                            placeholder="Select education"
-                            onChange={(val) => handleChange("education", val)}
-                        />
-                    </div>
-
-                    {/* Address - Textarea */}
-                    <div className="md:col-span-2">
-                        <Label>Address</Label>
-                        <textarea
-                            rows={3}
-                            placeholder="Enter address"
-                            value={formData.address}
-                            onChange={(e) => handleChange("address", e.target.value)}
-                            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none dark:border-gray-700 dark:bg-gray-900"
-                        />
-                    </div>
-
-                    {/* Zone */}
-                    <div>
-                        <Label>Zone</Label>
-                        <Select
-                            options={zoneOptions}
-                            placeholder="Select zone"
-                            onChange={(val) => handleChange("zone", val)}
-                        />
-                    </div>
-
-                    {/* Password */}
                     <div>
                         <Label>Password</Label>
                         <Input
-                            type="password"
-                            placeholder="Enter Password"
+                            type="text"
                             value={formData.password}
-                            onChange={(e) => handleChange("password", e.target.value)}
+                            disabled
+                            className="bg-gray-100 cursor-not-allowed"
                         />
                     </div>
 
                 </div>
 
-                {/* Submit Button */}
                 <div className="mt-6 flex justify-end">
                     <button
                         type="submit"
-                        className="rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-brand-700 transition"
+                        disabled={loading}
+                        className={`rounded-lg px-6 py-2.5 text-sm font-medium text-white transition
+                        ${loading
+                            ? "bg-gray-400 cursor-not-allowed opacity-60"
+                            : "bg-brand-500 hover:bg-brand-600"
+                        }`}
                     >
-                        Submit
+                        {loading ? "Submit..." : "Submit"}
                     </button>
                 </div>
             </form>
