@@ -32,7 +32,7 @@ export default function UsersTable() {
     // Fetch Users
     const fetchUsers = async () => {
         try {
-            const res = await fetch("http://localhost:8000/api/auth/users?role=User");
+            const res = await fetch("https://skillfortsalesapp.onrender.com/api/auth/users?role=User");
             const data = await res.json();
             if (data.success) setUsers(data.users);
         } catch (err) {
@@ -50,7 +50,7 @@ export default function UsersTable() {
     const handleDelete = async (id: string) => {
         if (!window.confirm("Delete user?")) return;
 
-        await fetch(`http://localhost:8000/api/auth/user/${id}`, {
+        await fetch(`https://skillfortsalesapp.onrender.com/api/auth/user/${id}`, {
             method: "DELETE",
         });
 
@@ -61,7 +61,7 @@ export default function UsersTable() {
     const handleUpdate = async (id: string) => {
         try {
             const res = await fetch(
-                `http://localhost:8000/api/auth/user/${id}`
+                `https://skillfortsalesapp.onrender.com/api/auth/user/${id}`
             );
             const data = await res.json();
 
@@ -84,7 +84,7 @@ export default function UsersTable() {
 
         try {
             const res = await fetch(
-                `http://localhost:8000/api/auth/user/${editUser._id}`,
+                `https://skillfortsalesapp.onrender.com/api/auth/user/${editUser._id}`,
                 {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
