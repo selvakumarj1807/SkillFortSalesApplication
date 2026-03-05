@@ -3,17 +3,44 @@ import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { useNavigate } from "react-router-dom";
 
+interface Role {
+  _id: string;
+  name: string;
+}
+ 
+interface User {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: Role;
+}
+
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    if (token) {
-      const decoded = decodeToken(token);
-      setUser(decoded);
+    const storedAdmin = localStorage.getItem("admin");
+
+    if (storedAdmin) {
+      setUser(JSON.parse(storedAdmin));
     }
+
+    // listen for update
+    const handleAdminUpdate = () => {
+      const updatedAdmin = localStorage.getItem("admin");
+      if (updatedAdmin) {
+        setUser(JSON.parse(updatedAdmin));
+      }
+    };
+
+    window.addEventListener("adminUpdated", handleAdminUpdate);
+
+    return () => {
+      window.removeEventListener("adminUpdated", handleAdminUpdate);
+    };
   }, []);
 
   function toggleDropdown() {
@@ -33,6 +60,8 @@ export default function UserDropdown() {
 
       localStorage.removeItem("adminToken");
       localStorage.removeItem("admin");
+      localStorage.removeItem("adminId");
+
       closeDropdown();
       navigate("/adminSignin");
     } catch (error) {
@@ -46,9 +75,7 @@ export default function UserDropdown() {
         onClick={toggleDropdown}
         className="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400"
       >
-        <span className="mr-3 overflow-hidden rounded-full h-11 w-11">
-          <img src="/images/user/owner.jpg" alt="User" />
-        </span>
+
 
         <span className="block mr-1 font-medium text-theme-sm">
           {user?.firstName} {user?.lastName}
@@ -79,7 +106,7 @@ export default function UserDropdown() {
       >
         <div>
           <span className="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
-            {user?.role || "Sales User"}
+            {user?.role?.name || "Admin"}
           </span>
           <span className="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">
             {user?.email || "Email not available"}
@@ -91,7 +118,7 @@ export default function UserDropdown() {
             <DropdownItem
               onItemClick={closeDropdown}
               tag="a"
-              to="/admin"
+              to="/adminProfile"
               className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
             >
               {/* icon unchanged */}
@@ -127,12 +154,3 @@ export default function UserDropdown() {
   );
 }
 
-/* helper */
-function decodeToken(token: string) {
-  try {
-    const payload = token.split(".")[1];
-    return JSON.parse(atob(payload));
-  } catch {
-    return null;
-  }
-}

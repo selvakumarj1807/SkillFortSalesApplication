@@ -9,6 +9,8 @@ import {
     UserCircleIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
+import { HiOutlineDocumentText } from "react-icons/hi";
+
 
 type NavItem = {
     name: string;
@@ -23,6 +25,11 @@ const navItems: NavItem[] = [
         name: "Dashboard",
         path: "/user",
     },
+    {
+        icon: <HiOutlineDocumentText   />,
+        name: "Quick Enquiry Form",
+        path: "/quick-enquiry",
+    }, 
     {
         icon: <UserCircleIcon />,
         name: "Student Referrals",

@@ -4,7 +4,7 @@ import { EyeCloseIcon, EyeIcon } from "../../icons";
 import Label from "../form/Label";
 import Input from "../form/input/InputField";
 import Checkbox from "../form/input/Checkbox";
-
+ 
 export default function SignInForm() {
     const navigate = useNavigate();
 
@@ -53,7 +53,14 @@ export default function SignInForm() {
 
             // ✅ Save token
             localStorage.setItem("adminToken", data.token);
-            localStorage.setItem("admin", "Admin");
+            
+            // ✅ Save token
+            localStorage.setItem("adminId", data.user.id);
+
+
+            // ✅ Save full user object
+            localStorage.setItem("admin", JSON.stringify(data.user));
+
 
             // ✅ Redirect to SalesUserHome
             navigate("/admin");

@@ -53,7 +53,13 @@ export default function SignInForm() {
 
             // ✅ Save token
             localStorage.setItem("userToken", data.token);
-            localStorage.setItem("user", "User");
+
+            // ✅ Save token
+            localStorage.setItem("userId", data.user.id);
+
+
+            // ✅ Save full user object
+            localStorage.setItem("user", JSON.stringify(data.user));
 
             // ✅ Redirect to SalesUserHome
             navigate("/user");
