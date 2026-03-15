@@ -71,6 +71,10 @@ export default function SignInForm() {
         }
     };
 
+    const googleLogin = () => {
+        window.open("https://skillfortsalesapp.onrender.com/auth/google", "_self");
+    };
+
     return (
         <div className="flex flex-col flex-1">
 
@@ -86,7 +90,8 @@ export default function SignInForm() {
                     </div>
 
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-1 sm:gap-5">
-                        <button className="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
+                        <button className="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10"
+                            onClick={googleLogin}>
                             <svg
                                 width="20"
                                 height="20"

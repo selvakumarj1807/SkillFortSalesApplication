@@ -37,6 +37,7 @@ import UserBlank from "./pages/UserBlank";
 import ManageSalesPerson from "./pages/Tables/ManageSalesPerson";
 import SalesUserProfile from "./pages/SalesUserProfile";
 import SalesAdminProfile from "./pages/SalesAdminProfile";
+import GoogleSuccess from "./pages/AuthPages/GoogleSuccess";
 
 export default function App() {
   return (
@@ -99,6 +100,7 @@ export default function App() {
         </Route>
 
         <Route path="/" element={<UserSignIn />} />
+        <Route path="/google-success" element={<GoogleSuccess />} />
 
         {/* Auth Layout */}
         <Route path="/signin" element={<SignIn />} />

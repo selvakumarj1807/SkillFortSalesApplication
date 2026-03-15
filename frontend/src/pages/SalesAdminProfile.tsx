@@ -1,8 +1,6 @@
 import PageBreadcrumb from "../components/common/PageBreadCrumb";
 import { useEffect } from "react";
 import SalesAdminInfoCard from "../components/UserProfile/SalesAdminInfoCard";
-import Footer from "../components/common/Footer";
-import WhatsAppFloat from "../components/common/WhatsAppFloat";
 
 export default function SalesAdminProfile() {
     useEffect(() => {
@@ -27,9 +25,7 @@ export default function SalesAdminProfile() {
                 </div>
             </div>
 
-            <WhatsAppFloat />
-
-            <Footer />
+            
         </>
     );
 }
