@@ -3,6 +3,7 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
 const router = express.Router();
+const CLIENT_URL = process.env.CLIENT_URL;
 
 router.get(
   "/google",
@@ -25,7 +26,7 @@ router.get(
 
     // redirect to React with data
     res.redirect(
-      `https://skill-fort-sales-application.vercel.app/google-success?token=${token}&userId=${user._id}&name=${user.name}&email=${user.email}&picture=${user.picture}&firstName=${user.firstName}&lastName=${user.lastName}`
+      `${CLIENT_URL}/google-success?token=${token}&userId=${user._id}&name=${user.name}&email=${user.email}&picture=${user.picture}&firstName=${user.firstName}&lastName=${user.lastName}`
     );
   }
 );

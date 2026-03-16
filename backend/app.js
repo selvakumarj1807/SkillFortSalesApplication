@@ -13,10 +13,17 @@ require("./config/passport");
 
 const gmailAuthRoutes = require("./routes/auth");
 
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://skill-fort-sales-application.vercel.app"
+  ],
+  credentials: true
+}));
+
 
 // ✅ Enable CORS for localhost and deployed frontend
 app.use(express.json());
-app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, "js")));
@@ -29,6 +36,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.set("trust proxy", 1);
 
 const authRoutes = require("./routes/authRoutes");
 
