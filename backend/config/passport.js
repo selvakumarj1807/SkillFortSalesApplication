@@ -1,6 +1,7 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/User");
+const Role = require("../models/Role");
 
 passport.use(
   new GoogleStrategy(
@@ -17,13 +18,18 @@ passport.use(
         });
 
         if (!user) {
+
+          // find role document
+          const role = await Role.findOne({ name: "User" });
+
           user = await User.create({
             googleId: profile.id,
             name: profile.displayName,
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
             email: profile.emails[0].value,
-            picture: profile.photos[0].value
+            picture: profile.photos[0].value,
+            role: role._id
           });
         }
 
