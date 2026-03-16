@@ -69,7 +69,7 @@ export default function SignUpForm() {
     };
 
     const googleLogin = () => {
-        window.open("http://localhost:8000/auth/google", "_self");
+        window.open("https://skillfortsalesapp.onrender.com/auth/google", "_self");
     };
 
     return (
