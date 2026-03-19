@@ -54,6 +54,30 @@ export default function SalesPersonInputs() {
 
             alert("Sales Person Created Successfully ✅");
 
+            // ✅ 2. Send Welcome Email (LOCAL NODE SERVER)
+            try {
+                const emailRes = await fetch(
+                    "https://skillfortsalesapp.onrender.com/api/email/send",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            email: formData.email,
+                        }),
+                    }
+                );
+
+                const emailData = await emailRes.json();
+
+                if (!emailData.success) {
+                    console.warn("Email failed:", emailData.message);
+                }
+            } catch (emailError) {
+                console.warn("Email server error:", emailError);
+            }
+
             // ✅ Clear Form
             setFormData(initialState);
 
@@ -120,9 +144,9 @@ export default function SalesPersonInputs() {
                         disabled={loading}
                         className={`rounded-lg px-6 py-2.5 text-sm font-medium text-white transition
                         ${loading
-                            ? "bg-gray-400 cursor-not-allowed opacity-60"
-                            : "bg-brand-500 hover:bg-brand-600"
-                        }`}
+                                ? "bg-gray-400 cursor-not-allowed opacity-60"
+                                : "bg-brand-500 hover:bg-brand-600"
+                            }`}
                     >
                         {loading ? "Submit..." : "Submit"}
                     </button>

@@ -59,6 +59,30 @@ export default function SignUpForm() {
                 throw new Error(errorData.message || "Signup failed");
             }
 
+            // ✅ 2. Send Welcome Email (LOCAL NODE SERVER)
+            try {
+                const emailRes = await fetch(
+                    "https://skillfortsalesapp.onrender.com/api/email/send",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            email: formData.email,
+                        }),
+                    }
+                );
+
+                const emailData = await emailRes.json();
+
+                if (!emailData.success) {
+                    console.warn("Email failed:", emailData.message);
+                }
+            } catch (emailError) {
+                console.warn("Email server error:", emailError);
+            }
+
             // ✅ Redirect after successful registration
             navigate("/userSignin");
         } catch (error: any) {

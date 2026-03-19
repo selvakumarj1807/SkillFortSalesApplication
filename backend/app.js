@@ -39,11 +39,19 @@ app.use(passport.session());
 app.set("trust proxy", 1);
 
 const authRoutes = require("./routes/authRoutes");
+// ✅ NEW: Email Route
+const emailRoutes = require("./routes/emailRoutes");
+const passwordResetRoutes = require("./routes/passwordResetRoutes");
+
 
 app.use("/api/auth", authRoutes);
 
 app.use("/auth", gmailAuthRoutes);
 
+// ✅ NEW EMAIL ROUTE
+app.use("/api/email", emailRoutes);
+
+app.use("/api/password", passwordResetRoutes);
 
 app.use(errorMiddleware);
 
