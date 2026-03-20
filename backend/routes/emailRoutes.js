@@ -25,13 +25,13 @@ router.post("/send", async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "selvakumarj1807@gmail.com",
-        pass: "bffnoatyszeuclqx"
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
       }
     });
 
     const mailOptions = {
-      from: "selvakumarj1807@gmail.com",
+      from: process.env.EMAIL_USER,
       to: email,
       subject: "Welcome 🎉",
       text: `Welcome! Your email has been successfully registered at SkillFort Sales Application 🎉`

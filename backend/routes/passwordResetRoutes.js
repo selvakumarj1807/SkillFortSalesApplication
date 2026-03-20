@@ -17,13 +17,13 @@ router.post("/send-otp", async (req, res) => {
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: "selvakumarj1807@gmail.com",
-                pass: "bffnoatyszeuclqx"
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
             }
         });
 
         await transporter.sendMail({
-            from: "selvakumarj1807@gmail.com",
+            from: process.env.EMAIL_USER,
             to: email,
             subject: "Password Reset OTP",
             text: `Your OTP is ${otp}`
