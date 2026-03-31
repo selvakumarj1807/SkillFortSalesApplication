@@ -5,39 +5,39 @@ const User = require("../models/User"); // adjust path
 const bcrypt = require("bcryptjs");
 
 
+const express = require("express");
+const sgMail = require("@sendgrid/mail");
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 let otpStorage = {};
 
-// ✅ SEND OTP
 router.post("/send-otp", async (req, res) => {
     const { email } = req.body;
-
     const otp = Math.floor(100000 + Math.random() * 900000);
 
     try {
-        const transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 587,
-            secure: false,
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
-            }
-        });
-
-        await transporter.sendMail({
-            from: process.env.EMAIL_USER,
+        const msg = {
             to: email,
+            from: "selvakumarj1807@gmail.com", // ✅ MUST be verified
             subject: "Password Reset OTP",
-            text: `Your OTP is ${otp}`
-        });
+            text: `Your OTP is ${otp}`,
+        };
+
+        await sgMail.send(msg);
 
         otpStorage[email] = otp;
 
-        res.json({ success: true, message: "OTP sent" });
+        res.json({ success: true, message: "OTP sent successfully" });
 
     } catch (err) {
-        console.error("EMAIL ERROR:", err);
-        res.status(500).json({ success: false, message: err.message });
+        console.error("SENDGRID ERROR:", err.response?.body || err.message);
+
+        res.status(500).json({
+            success: false,
+            message: "Email failed",
+            error: err.message
+        });
     }
 });
 
