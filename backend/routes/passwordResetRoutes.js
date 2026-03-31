@@ -17,7 +17,7 @@ router.post("/send-otp", async (req, res) => {
     try {
         const msg = {
             to: email,
-            from: "selvakumarj1807@gmail.com", // ✅ MUST be verified
+            from: "selvakumarj.developer@gmail.com", // ✅ MUST be verified
             subject: "Password Reset OTP",
             text: `Your OTP is ${otp}`,
         };
