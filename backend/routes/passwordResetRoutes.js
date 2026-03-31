@@ -15,7 +15,9 @@ router.post("/send-otp", async (req, res) => {
 
     try {
         const transporter = nodemailer.createTransport({
-            service: "gmail",
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS
@@ -34,6 +36,7 @@ router.post("/send-otp", async (req, res) => {
         res.json({ success: true, message: "OTP sent" });
 
     } catch (err) {
+        console.error("EMAIL ERROR:", err);
         res.status(500).json({ success: false, message: "Email failed" });
     }
 });
@@ -69,6 +72,7 @@ router.post("/change-password", async (req, res) => {
         res.json({ success: true, message: "Password updated" });
 
     } catch (err) {
+        console.error("EMAIL ERROR:", err);
         res.status(500).json({ message: "Error updating password" });
     }
 });
