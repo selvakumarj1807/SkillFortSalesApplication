@@ -14,10 +14,8 @@ require("./config/passport");
 const gmailAuthRoutes = require("./routes/auth");
 
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://skill-fort-sales-application.vercel.app"
-  ],
+  origin: "*", 
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 

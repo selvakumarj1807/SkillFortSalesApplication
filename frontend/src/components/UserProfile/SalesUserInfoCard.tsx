@@ -38,6 +38,7 @@ export default function UserInfoCard() {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const BASE_URL = "http://localhost:8000/api";
 
   // ✅ Fetch User Data
   useEffect(() => {
@@ -110,7 +111,7 @@ export default function UserInfoCard() {
 
     try {
       const res = await fetch(
-        "https://skillfortsalesapp.onrender.com/api/password/send-otp",
+        `${BASE_URL}/password/send-otp`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -138,7 +139,7 @@ export default function UserInfoCard() {
 
   const verifyOtp = async () => {
     const res = await fetch(
-      "https://skillfortsalesapp.onrender.com/api/password/verify-otp",
+      `${BASE_URL}/password/verify-otp`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -158,7 +159,7 @@ export default function UserInfoCard() {
 
   const changePassword = async () => {
     const res = await fetch(
-      "https://skillfortsalesapp.onrender.com/api/password/change-password",
+      `${BASE_URL}/password/change-password`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
