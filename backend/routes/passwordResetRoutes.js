@@ -4,8 +4,6 @@ const nodemailer = require("nodemailer");
 const User = require("../models/User"); // adjust path
 const bcrypt = require("bcryptjs");
 
-
-const express = require("express");
 const sgMail = require("@sendgrid/mail");
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
