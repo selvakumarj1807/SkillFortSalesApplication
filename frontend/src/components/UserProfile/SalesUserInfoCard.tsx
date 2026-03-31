@@ -38,7 +38,7 @@ export default function UserInfoCard() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const BASE_URL = "http://localhost:8000/api";
+  const BASE_URL = "https://skillfortsalesapp.onrender.com/api";
 
   // ✅ Fetch User Data
   useEffect(() => {
